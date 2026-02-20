@@ -1,6 +1,8 @@
 import { AppBar, Toolbar, Typography, Button, Box, Container } from '@mui/material'
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter'
 import AddIcon from '@mui/icons-material/Add'
+import LoginIcon from '@mui/icons-material/Login'
+import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import { useNavigate } from 'react-router-dom'
 
 export default function Navbar() {
@@ -50,6 +52,24 @@ export default function Navbar() {
             size="small"
           >
             글쓰기
+          </Button>
+          <Button
+            variant="outlined"
+            startIcon={<LoginIcon />}
+            onClick={() => navigate('/login')}
+            size="small"
+            sx={{ borderColor: '#2a2a2a', color: 'text.secondary', '&:hover': { borderColor: 'primary.main', color: 'primary.main' } }}
+          >
+            로그인
+          </Button>
+          <Button
+            variant="outlined"
+            startIcon={<PersonAddIcon />}
+            onClick={() => navigate('/register')}
+            size="small"
+            sx={{ borderColor: 'primary.main', color: 'primary.main' }}
+          >
+            회원가입
           </Button>
         </Toolbar>
       </Container>
