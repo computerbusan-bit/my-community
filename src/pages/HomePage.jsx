@@ -162,12 +162,12 @@ export default function HomePage() {
         <Grid container spacing={2}>
           {loading
             ? Array.from({ length: 6 }).map((_, i) => (
-                <Grid item xs={12} md={6} key={i}>
+                <Grid item xs={12} key={i}>
                   <Skeleton variant="rectangular" height={160} sx={{ borderRadius: 1 }} />
                 </Grid>
               ))
             : filtered.map((post) => (
-                <Grid item xs={12} md={6} key={post.id}>
+                <Grid item xs={12} key={post.id}>
                   <Card>
                     <CardActionArea onClick={() => navigate(`/posts/${post.id}`)}>
                       <CardContent sx={{ p: 3 }}>
