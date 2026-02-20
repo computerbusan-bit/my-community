@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import {
-  Container, Box, Typography, Grid, Card, CardContent, CardActionArea,
+  Container, Box, Typography, Stack, Card, CardContent, CardActionArea,
   Chip, Avatar, Skeleton, Select, MenuItem, FormControl, InputLabel,
   TextField, InputAdornment, Divider,
 } from '@mui/material'
@@ -159,83 +159,77 @@ export default function HomePage() {
         <Divider sx={{ mb: 3 }} />
 
         {/* 게시글 목록 */}
-        <Grid container spacing={2}>
+        <Stack spacing={2}>
           {loading
             ? Array.from({ length: 6 }).map((_, i) => (
-                <Grid item xs={12} key={i}>
-                  <Skeleton variant="rectangular" height={160} sx={{ borderRadius: 1 }} />
-                </Grid>
+                <Skeleton key={i} variant="rectangular" height={160} sx={{ borderRadius: 1 }} />
               ))
             : filtered.map((post) => (
-                <Grid item xs={12} key={post.id}>
-                  <Card>
-                    <CardActionArea onClick={() => navigate(`/posts/${post.id}`)}>
-                      <CardContent sx={{ p: 3 }}>
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1.5 }}>
-                          <Chip
-                            label={CATEGORIES[post.category] || post.category}
-                            color={CATEGORY_COLORS[post.category] || 'default'}
-                            size="small"
-                          />
-                          <Typography variant="caption" color="text.secondary" sx={{ ml: 'auto' }}>
-                            {new Date(post.created_at).toLocaleDateString('ko-KR')}
-                          </Typography>
-                        </Box>
-                        <Typography
-                          variant="h6"
-                          sx={{
-                            fontWeight: 700,
-                            mb: 1,
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap',
-                          }}
-                        >
-                          {post.title}
+                <Card key={post.id}>
+                  <CardActionArea onClick={() => navigate(`/posts/${post.id}`)}>
+                    <CardContent sx={{ p: 3 }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1.5 }}>
+                        <Chip
+                          label={CATEGORIES[post.category] || post.category}
+                          color={CATEGORY_COLORS[post.category] || 'default'}
+                          size="small"
+                        />
+                        <Typography variant="caption" color="text.secondary" sx={{ ml: 'auto' }}>
+                          {new Date(post.created_at).toLocaleDateString('ko-KR')}
                         </Typography>
-                        <Typography
-                          variant="body2"
-                          color="text.secondary"
-                          sx={{
-                            mb: 2,
-                            display: '-webkit-box',
-                            WebkitLineClamp: 2,
-                            WebkitBoxOrient: 'vertical',
-                            overflow: 'hidden',
-                          }}
-                        >
-                          {post.content}
+                      </Box>
+                      <Typography
+                        variant="h6"
+                        sx={{
+                          fontWeight: 700,
+                          mb: 1,
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
+                        {post.title}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{
+                          mb: 2,
+                          display: '-webkit-box',
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: 'vertical',
+                          overflow: 'hidden',
+                        }}
+                      >
+                        {post.content}
+                      </Typography>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                        <Avatar sx={{ width: 24, height: 24, bgcolor: 'primary.dark', fontSize: 12 }}>
+                          {post.author[0].toUpperCase()}
+                        </Avatar>
+                        <Typography variant="caption" color="text.secondary">
+                          {post.author}
                         </Typography>
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                          <Avatar
-                            sx={{ width: 24, height: 24, bgcolor: 'primary.dark', fontSize: 12 }}
-                          >
-                            {post.author[0].toUpperCase()}
-                          </Avatar>
-                          <Typography variant="caption" color="text.secondary">
-                            {post.author}
-                          </Typography>
-                          <Box sx={{ ml: 'auto', display: 'flex', gap: 1.5 }}>
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                              <FavoriteIcon sx={{ fontSize: 14, color: 'secondary.main' }} />
-                              <Typography variant="caption" color="text.secondary">
-                                {post.likes}
-                              </Typography>
-                            </Box>
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                              <CommentIcon sx={{ fontSize: 14, color: 'primary.main' }} />
-                              <Typography variant="caption" color="text.secondary">
-                                {commentCounts[post.id] ?? '-'}
-                              </Typography>
-                            </Box>
+                        <Box sx={{ ml: 'auto', display: 'flex', gap: 1.5 }}>
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                            <FavoriteIcon sx={{ fontSize: 14, color: 'secondary.main' }} />
+                            <Typography variant="caption" color="text.secondary">
+                              {post.likes}
+                            </Typography>
+                          </Box>
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                            <CommentIcon sx={{ fontSize: 14, color: 'primary.main' }} />
+                            <Typography variant="caption" color="text.secondary">
+                              {commentCounts[post.id] ?? '-'}
+                            </Typography>
                           </Box>
                         </Box>
-                      </CardContent>
-                    </CardActionArea>
-                  </Card>
-                </Grid>
+                      </Box>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
               ))}
-        </Grid>
+        </Stack>
 
         {!loading && filtered.length === 0 && (
           <Box sx={{ textAlign: 'center', py: 10 }}>
