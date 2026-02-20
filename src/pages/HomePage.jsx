@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import {
-  Container, Box, Typography, Stack, Card, CardContent, CardActionArea,
+  Container, Box, Typography, Card, CardContent, CardActionArea,
   Chip, Avatar, Skeleton, Select, MenuItem, FormControl, InputLabel,
   TextField, InputAdornment, Divider,
 } from '@mui/material'
@@ -159,10 +159,16 @@ export default function HomePage() {
         <Divider sx={{ mb: 3 }} />
 
         {/* 게시글 목록 */}
-        <Stack spacing={2}>
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
+            gap: 2,
+          }}
+        >
           {loading
             ? Array.from({ length: 6 }).map((_, i) => (
-                <Skeleton key={i} variant="rectangular" height={160} sx={{ borderRadius: 1 }} />
+                <Skeleton key={i} variant="rectangular" height={200} sx={{ borderRadius: 1 }} />
               ))
             : filtered.map((post) => (
                 <Card key={post.id}>
@@ -229,7 +235,7 @@ export default function HomePage() {
                   </CardActionArea>
                 </Card>
               ))}
-        </Stack>
+        </Box>
 
         {!loading && filtered.length === 0 && (
           <Box sx={{ textAlign: 'center', py: 10 }}>
